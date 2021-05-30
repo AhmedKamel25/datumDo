@@ -1,0 +1,83 @@
+<section class="edit-todo">
+    <div class="container  edit-todo-container">
+      <div class="col-xs-9 col-md-6">
+        <form [formGroup]="editTodoForm" (ngSubmit)="onSubmit(selectValye)">
+          <div class="place " >
+            <p class="text-place" >Event Name</p>
+             <select name="group" id="group" formControlName="taskGroup" class="form-group" (change)="onchang($event)"> 
+              <option value="work">work</option>
+              <option value="personal">personal</option>
+              <option value="family">family</option>
+             <!-- <option *ngFor="let todo of todoLists" value="todo.groupName">{{ todo.groupName }}</option>  -->
+            </select> 
+          </div>
+     
+          <div class=" form-group place">
+            <label for="" class="text-place">Due Date</label>
+            <input type="date" placeholder="select a day" class="form-control" formControlName="dueDate" >
+            <p class="alert alert-danger" *ngIf="editTodoForm.get('dueDate').touched && editTodoForm.get('dueDate').invalid">kindly select a date!</p>
+          </div>
+  
+          <h4>Tasks on this Event</h4>
+
+          <div *ngFor="let todo of todoLists">
+            <div class="div" *ngIf="todo.groupName == selectValye">
+      
+            <div class="group place taskStyle" >
+              <p class="text-place">Task Name</p>
+              <select name="group" id="group" formControlName="taskName" class="form-group" (change)="onchangName($event)">
+              <option *ngFor="let task of todo.tasks" [value]="task.taskTitle">{{ task.taskTitle}}</option>
+              </select>
+              <span (click)="onEditTaskName()" class="editTaskName">
+                <img src="../../../assets/images/Icon feather-edit.png">
+              </span>
+          </div>
+          <input type="text" placeholder="Edit Task Name" class="form-control inputEdit" *ngIf="editState" formControlName="editTask"  >
+
+            <div class="date-group">
+                <div class=" form-group place">
+                    <label for="" class="text-place">Start Date</label>
+                    <input type="date" placeholder="select a day" class="form-control" formControlName="startDate"  >
+                    <p class="alert alert-danger" *ngIf="editTodoForm.get('startDate').touched && editTodoForm.get('startDate').invalid">kindly select a date!</p>
+                </div>
+                <div class="date form-group place">
+                    <label for="" class="text-place">End date</label>
+                    <input type="date" placeholder="select a day" class="form-control" formControlName="endDate" >
+                    <p class="alert alert-danger" *ngIf="editTodoForm.get('endDate').touched && editTodoForm.get('endDate').invalid">kindly select a End date!</p>
+                </div>
+      
+            </div>
+
+            <p class="alert alert-danger" *ngIf="editTodoForm.get('taskGroup').touched && editTodoForm.get('taskGroup').invalid">kindly select a group!</p>
+
+                <div class="priority place" >
+                    <div class="group " >
+                        <p class="text-place">Give it a priority</p>
+                        <select name="priority" class="form-group"  formControlName="taskPriority">
+                        <option  value="high">High</option>
+                        <option  value="mid">Mid</option>
+                        <option  value="low">Low</option>
+
+                        </select>
+                    </div>
+                </div>
+            
+            <p class="alert alert-danger" *ngIf="editTodoForm.get('taskPriority').touched && editTodoForm.get('taskPriority').invalid">kindly select a priority!</p>
+
+            <button type="button" class="btn  add-another-btn delete-button" (click)="onDeleteBtn(selectValye,selectTakValue)"> <img src="../../../assets/images/icons8_trash_can_26px.png" /> Delete This Task</button>
+
+        </div>
+      </div>
+
+          <div class="action-buttons">
+            <button type="button" class="btn btn-primary add-another-btn" routerLink="/add-todo">Add Another Task</button>
+            <div class="btn-gr">
+                <button type="button" class="btn btn-danger cancel" routerLink="" >back</button>
+                <button type="submit" class="btn btn-secondary save" [disabled]="editTodoForm.invalid">save Event</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  

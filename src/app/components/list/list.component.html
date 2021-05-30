@@ -1,0 +1,34 @@
+<div class="myTasks container">
+    <h3>My Tasks</h3>
+    <h4 class="add-new" routerLink="/add-todo"> 
+        <img src="../../../assets/images/plus-512.png "/>
+        add New Event
+    </h4>
+</div>
+<div class="container group">
+
+<div class="{{ todo.groupName }}" *ngFor="let todo of todoLists | groupNameFilter :filteredGroup : 'groupName' ">
+        <header class="{{ todo.groupName }}-header">
+            <h4 style="margin-bottom: 0;" >{{ todo.groupName }}</h4>
+            <img src="../../../assets/images/Icon feather-edit.png" class="edit" routerLink="/edit" (click)="edittask(todo.groupName)">
+        </header>
+        <div >
+        <h3 class="tasks-text">Tasks :</h3>
+        <div class="tasks"  *ngFor="let task of todo.tasks">
+            <div class="task-details"[ngClass]="{'redHigh': task.taskPriority == 'high', 'greenMediem': task.taskPriority == 'mid', 'yellowLow': task.taskPriority === 'low'}" >
+                <p class="task-Title">{{ task.taskTitle}}</p>
+                <p>Start Date : {{task.startDate | date:"medium"}}</p>
+                <p> End Date : {{task.endDate | date:"medium"}}</p>
+                <p style="margin-bottom: 0;" >
+                    priorty : 
+                    <span [ngClass]="{'redTask': task.taskPriority == 'high', 'greenTask': task.taskPriority == 'mid', 'yellowTask': task.taskPriority === 'low'}">{{task.taskPriority}}</span></p>
+    
+    
+            </div>
+        </div>
+        </div>
+ 
+    </div>
+    
+
+</div>
